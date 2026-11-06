@@ -17,6 +17,20 @@
 math[hidden]{display:none!important}
 
 .reduced-parameters{grid-template-columns:repeat(3,minmax(0,1fr))}.reduced-parameters .parameter:nth-child(n+4){padding-top:4px}.reduced-parameters .parameter:nth-child(5){grid-column:2/4}@media(max-width:760px){.reduced-parameters{grid-template-columns:1fr}.reduced-parameters .parameter:nth-child(5){grid-column:auto}}
+
+/* Wide screens: controls beside the experiment, equations beneath it. */
+@media (min-width: 1000px) {
+  main {max-width: 1600px; padding: 0 32px; display:grid; grid-template-columns:minmax(230px,280px) minmax(0,1fr); grid-template-areas:"header header" "intro intro" "controls experiment" "equations equations" "footer footer"; column-gap:28px; align-items:start;}
+  .masthead {grid-area:header}.intro {grid-area:intro; padding:24px 0 20px}
+  .parameters.reduced-parameters {grid-area:controls; display:grid; grid-template-columns:minmax(0,1fr); gap:22px; padding:22px; border:1px solid var(--line); border-radius:12px; background:var(--panel)}
+  .reduced-parameters .parameter:nth-child(n+4) {padding-top:0}
+  .reduced-parameters .parameter:nth-child(5) {grid-column:auto}
+  .player {grid-area:experiment; min-width:0}
+  .equations {grid-area:equations; margin:24px 0}
+  footer {grid-area:footer}
+}
+.theory-link {display:inline-block; color:var(--mint); margin:0 0 12px; font-size:12px; text-underline-offset:3px}
+
 </style>
   
   
@@ -72,7 +86,7 @@ math[hidden]{display:none!important}
     <label class="sr-only" for="timeline">Animation time in seconds</label><input id="timeline" class="timeline" type="range" min="0" max="42" step="0.01" value="0">
     <nav class="chapters" aria-label="Chapters"><button data-time="0" class="active">01 <span>Reference</span></button><button data-time="7">02 <span>Sample</span></button><button data-time="13">03 <span>Translation</span></button><button data-time="35">04 <span>Response</span></button></nav>
   </section>
-  <footer><details><summary>Model assumptions</summary><p>Detection, the sign of n₂ and absorption are independent selections. A common strength control scales the effective phase and selected absorptive response. Closed aperture uses fixed S = 0.25. Open aperture collects all transmitted power. Linear absorption is position independent. Saturable absorption uses α(I) = α₀/(1 + I/Isat), with fixed α₀L = 0.7 and focal I₀/Isat from 0 to 5. Transmittance is normalized to the low-intensity reference. Packets represent absolute transmitted power. The combined refractive/absorptive profile is a radial illustration without nonlinear diffraction propagation or temporal pulse integration.</p><p><a href="https://doi.org/10.1109/3.53394">Sheik-Bahae et al. (1990)</a> · <a href="https://doi.org/10.1103/PhysRevB.69.115421">Polyakov et al. (2004)</a></p></details><div class="credits"><span>Sergio C.</span><p>Created with AI assistance<br>OpenAI GPT-6.1 Sol · Physics review: GPT-6 Astra</p></div></footer>
+  <footer><div><a class="theory-link" href="https://github.com/castri85/simulaciones-optica#z-scan-fundamento-físico-y-simulación-interactiva">Fundamento teórico y cálculos ↗</a><details><summary>Model assumptions</summary><p>Detection, the sign of n₂ and absorption are independent selections. A common strength control scales the effective phase and selected absorptive response. Closed aperture uses fixed S = 0.25. Open aperture collects all transmitted power. Linear absorption is position independent. Saturable absorption uses α(I) = α₀/(1 + I/Isat), with fixed α₀L = 0.7 and focal I₀/Isat from 0 to 5. Transmittance is normalized to the low-intensity reference. Packets represent absolute transmitted power. The combined refractive/absorptive profile is a radial illustration without nonlinear diffraction propagation or temporal pulse integration.</p><p><a href="https://doi.org/10.1109/3.53394">Sheik-Bahae et al. (1990)</a> · <a href="https://doi.org/10.1103/PhysRevB.69.115421">Polyakov et al. (2004)</a></p></details></div><div class="credits"><span>Sergio C.</span><p>Created with AI assistance<br>OpenAI GPT-6.1 Sol · Physics review: GPT-6 Astra</p></div></footer>
 </main>
 <script>'use strict';
 ((root) => {
@@ -460,4 +474,5 @@ math[hidden]{display:none!important}
 </script>
 </body>
 </html>
+
 
