@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101722">
+  <title>Z-scan | Sergio C.</title>
+  <style>:root{color-scheme:dark;--bg:#101722;--panel:#151f2c;--line:#2c3949;--text:#e9eef4;--muted:#a4b0c1;--mint:#8af1d6;--purple:#c3acf7;font-family:Inter,"Segoe UI",Arial,sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}button,input,select{font:inherit}button,select{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--mint);outline-offset:5px}button{color:inherit}main{max-width:1200px;margin:auto;padding:0 40px}.masthead{height:92px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}.brand{text-decoration:none;color:var(--text);font-size:14px;letter-spacing:.15em;display:flex;align-items:center;gap:13px;font-weight:600}.brand-mark{font-family:Georgia,serif;font-size:36px;font-style:italic;color:var(--mint);letter-spacing:0}.brand-sub,.edition{font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:400}.intro{padding:48px 0 34px;display:flex;justify-content:space-between;gap:24px;align-items:flex-end}.eyebrow{font-size:10px;letter-spacing:.2em;font-weight:600;color:var(--mint);margin:0 0 15px}h1{font-size:clamp(25px,3.2vw,40px);font-weight:450;letter-spacing:-.035em;line-height:1.17;margin:0}.intro-text{font-size:14px;line-height:1.6;color:var(--muted);max-width:570px;margin:17px 0 0}.format{text-align:right;font-size:10px;letter-spacing:.1em;white-space:nowrap;color:var(--mint)}.format span{display:block;font-size:12px;letter-spacing:0;color:var(--muted);margin-top:8px}.player{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 20px 70px #0002}.stage-top{display:flex;justify-content:space-between;align-items:center;padding:22px 28px 0;font-size:10px;letter-spacing:.1em;color:var(--muted)}.live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--mint);margin-right:7px}.illustrative{letter-spacing:0;font-size:11px}.optics-wrap{padding:8px 22px 0}#optics{display:block;width:100%;height:auto;overflow:visible}svg text{font-family:inherit}.axis{stroke:#405267;stroke-width:1;stroke-dasharray:3 7}.focus-guide{stroke:#667b8e;stroke-dasharray:3 5;stroke-width:1}.small-label{font-size:11px;fill:#a4b0c1}.component-label{font-size:12px;fill:#c4ceda}.sample-label{font-size:12px;fill:var(--purple)}.instrument{fill:#263343;stroke:#71859c}.stand{stroke:#71859c;stroke-width:2;fill:none}.beam-edge{stroke:#8af1d6;stroke-width:1.2;fill:none;opacity:.7}#reference-beam{fill:none;stroke:#8aa3b3;stroke-opacity:.25;stroke-dasharray:4 6;stroke-width:1}.travel-arrow{fill:none;stroke:#71859c;stroke-width:1}.travel-label{font-size:10px;fill:#a4b0c1;paint-order:stroke;stroke:var(--panel);stroke-width:8px}.readouts{display:grid;grid-template-columns:1.9fr 1fr;gap:32px;padding:10px 28px 0}.curve-panel{min-width:0}.panel-label{display:flex;justify-content:space-between;gap:12px;font-size:9px;letter-spacing:.1em;color:var(--muted)}#transmission-value{letter-spacing:0;font-variant-numeric:tabular-nums;color:var(--mint);font-size:11px}#chart{display:block;width:100%;height:auto;max-height:190px;margin-top:5px}.chart-label{fill:#a4b0c1;font-size:11px}#curve{fill:none;stroke:var(--mint);stroke-width:2.5;stroke-linecap:round}#curve-ghost{fill:none;stroke:#647b82;stroke-width:1.3;opacity:.26;stroke-dasharray:3 5}#chart-cursor{stroke:#a4b0c1;stroke-width:1;stroke-dasharray:3 4}#chart-point{fill:var(--mint);stroke:var(--panel);stroke-width:2}.spot-panel{border-left:1px solid var(--line);padding-left:24px;display:flex;flex-direction:column;align-items:center;min-width:0}.spot-panel .panel-label{align-self:flex-start}#spot{display:block;max-width:100%;width:240px;height:120px}.spot-legend{font-size:10px;color:var(--muted);display:flex;gap:7px;align-items:center}.ring-icon{width:11px;height:11px;border-radius:50%;border:1px dashed #b9c4d0}.narration{display:flex;gap:18px;align-items:flex-start;min-height:108px;margin:15px 28px 0;padding:22px 0;border-top:1px solid var(--line)}#scene-number{font-size:11px;color:var(--mint);font-variant-numeric:tabular-nums;padding-top:5px}h2{font-size:19px;letter-spacing:-.02em;font-weight:500;margin:0}.narration p{color:#b7c3d0;font-size:14px;line-height:1.6;margin:8px 0 0;max-width:850px}.transport{display:flex;gap:14px;align-items:center;padding:8px 28px 20px}.play{border:0;background:var(--mint);color:#10271f;border-radius:7px;min-width:140px;padding:11px 16px;font-size:12px;font-weight:600}.restart{background:none;border:1px solid var(--line);border-radius:7px;font-size:22px;width:37px;height:37px;color:var(--muted)}.time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}.speed{margin-left:auto;font-size:10px;color:var(--muted);display:flex;align-items:center;gap:9px}.speed select{color:var(--text);background:#1b2938;border:1px solid #3a4b5f;padding:6px;border-radius:4px;font-size:12px}.fullscreen{border:0;background:none;color:var(--muted);font-size:11px;margin-left:10px}.timeline{display:block;width:calc(100% - 56px);margin:0 28px;accent-color:var(--mint);height:15px;cursor:pointer}.chapters{display:grid;grid-template-columns:repeat(4,1fr);padding:13px 28px 21px;gap:16px}.chapters button{padding:7px 0;border:0;background:none;color:var(--muted);text-align:left;font-size:10px;display:flex;gap:9px}.chapters button.active{color:var(--mint)}.experiment{display:flex;justify-content:space-between;align-items:center;gap:25px;padding:36px 0}.experiment .eyebrow{margin-bottom:10px}.experiment h2{font-size:20px}.experiment p:not(.eyebrow){font-size:12px;color:var(--muted);margin:9px 0 0}.material-controls{display:flex;gap:8px}.material-controls button{background:transparent;border:1px solid #3b4759;border-radius:7px;padding:13px 17px;min-width:110px;text-align:left;font-size:12px;transition:background .15s}.material-controls button span{display:block;color:var(--muted);font-size:10px;margin-top:6px}.material-controls button[aria-pressed=true]{background:#243d3c;border-color:#83d8c4}.material-controls button[aria-pressed=true] span{color:var(--mint)}footer{border-top:1px solid var(--line);padding:22px 0 35px;display:flex;gap:30px;justify-content:space-between;align-items:flex-start;color:var(--muted)}footer p{font-size:10px;line-height:1.8;max-width:780px;margin:0}footer>span{font-size:9px;white-space:nowrap;letter-spacing:.1em;padding-top:4px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.player:fullscreen{overflow:auto;border:0;border-radius:0;display:flex;flex-direction:column;justify-content:center;padding:20px max(0px,calc((100vw - 1250px)/2));background:var(--bg)}@media(max-width:760px){main{padding:0 18px}.masthead{height:68px}.brand-sub,.edition{display:none}.intro{padding:30px 0 24px}.format{display:none}.stage-top{padding:18px 15px 0}.illustrative{font-size:9px;max-width:130px;text-align:right}.optics-wrap{padding:12px 0 5px;overflow-x:auto}#optics{min-width:660px}.readouts{padding:12px 15px 0;gap:10px;grid-template-columns:1fr}.spot-panel{display:none}.narration{margin:10px 15px 0;gap:12px;min-height:134px}.narration h2{font-size:17px}.narration p{font-size:13px}.transport{padding:5px 15px 16px;gap:9px;flex-wrap:wrap}.play{min-width:115px;padding:11px}.time{font-size:10px}.speed{font-size:0;gap:0}.fullscreen{display:none}.timeline{margin:0 15px;width:calc(100% - 30px)}.chapters{padding:10px 15px 18px;gap:8px}.chapters button{font-size:9px;gap:5px}.experiment{flex-direction:column;align-items:flex-start;padding:28px 0}.material-controls{width:100%}.material-controls button{flex:1;min-width:0;padding:12px}footer>span{display:none}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+.intensity-readout{margin:12px 28px 0;color:var(--mint);font-size:11px;line-height:1.5}.throughput{font-size:10px;color:var(--mint);text-align:center;margin:8px 0 0}@media(max-width:760px){.intensity-readout{margin:12px 15px 0;font-size:10px}}
+.parameters{display:grid;grid-template-columns:1fr 1.15fr .8fr;gap:28px;padding:0 0 28px;align-items:start}.parameter{min-width:0}.parameter h2,.parameter>label{display:block;font-size:11px;letter-spacing:.06em;font-weight:500;margin:0 0 12px;color:var(--muted)}.parameter .material-controls{gap:7px}.parameter .material-controls button{min-width:0;padding:11px 14px;text-align:center;font-size:12px;flex:1}.parameter select{width:100%;padding:9px 12px;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:6px;font-size:12px}.loss-row{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:var(--muted);margin:13px 0 6px}.loss-row output{color:var(--mint);font-variant-numeric:tabular-nums}.parameter input{width:100%;margin:0;accent-color:var(--mint)}.parameter input:disabled{opacity:.3}.parameter p{font-size:10px;color:var(--muted);margin:12px 0 0}.intro{padding:32px 0 26px}.intro h1{font-size:38px}.intro-text{margin:9px 0 0}.narration{min-height:90px}.narration h2{font-size:17px}.narration p{font-size:12px}.credits{text-align:right;min-width:180px}.credits>span{font-size:12px;color:var(--text)}.credits p{margin-top:7px;font-size:10px}.credits{font-size:11px}footer details{max-width:740px;font-size:11px}footer summary{cursor:pointer;color:var(--muted)}footer details p{margin-top:12px}footer a{color:var(--mint);text-underline-offset:3px}.throughput{font-variant-numeric:tabular-nums}.intensity-readout{font-variant-numeric:tabular-nums}@media(max-width:760px){.parameters{grid-template-columns:1fr 1fr;gap:20px}.absorption-parameter{grid-column:1/-1;grid-row:2}.parameter .material-controls button{padding:10px 5px;font-size:11px}.intro h1{font-size:30px}footer{flex-direction:column;gap:20px}.credits{text-align:left}.narration{min-height:115px}.edition{display:none}}@media(min-width:761px){.spot-panel{justify-content:center}}
+
+.physical-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px 20px;margin:0 0 24px}.physical-controls label{font-size:11px;color:var(--muted);line-height:1.5}.physical-controls input,.physical-controls select,.absorption-parameter input[type=number]{display:block;width:100%;margin-top:7px;background:var(--panel);color:var(--text);padding:9px;border:1px solid var(--line);border-radius:5px;font-size:13px}.equations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0 0 20px}.equations article{padding:15px;border:1px solid var(--line);border-radius:7px;min-width:0;overflow:auto}.equations h2{font-size:11px;color:var(--muted);font-weight:400;letter-spacing:0}.equations math{font-size:18px;margin:14px 0;color:var(--text)}.equations output{display:block;color:var(--mint);font-size:11px;font-variant-numeric:tabular-nums}.physical-status{color:var(--muted);font-size:12px;line-height:1.6;margin:10px 0 20px}.physical-status[data-invalid=true]{color:#ffcb9b}@media(max-width:760px){.physical-controls,.equations{grid-template-columns:repeat(2,minmax(0,1fr))}.equations math{font-size:16px}}
+
+.reduced-parameters{grid-template-columns:1.1fr 1fr 1fr}.reduced-parameters .loss-row{margin:0 0 12px}.reduced-parameters select{width:100%;padding:10px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px}.reduced-equations{margin-bottom:28px}@media(max-width:760px){.reduced-parameters{grid-template-columns:1fr}.reduced-equations{grid-template-columns:1fr}}
+
+math[hidden]{display:none!important}
+
+.reduced-parameters{grid-template-columns:repeat(3,minmax(0,1fr))}.reduced-parameters .parameter:nth-child(n+4){padding-top:4px}.reduced-parameters .parameter:nth-child(5){grid-column:2/4}@media(max-width:760px){.reduced-parameters{grid-template-columns:1fr}.reduced-parameters .parameter:nth-child(5){grid-column:auto}}
+</style>
+  
+  
+</head>
+<body>
+<main>
+  <header class="masthead"><span class="brand"><span class="brand-mark">z</span> SERGIO C.</span><span class="edition">Z-SCAN STUDY</span></header>
+  <section class="intro"><div><h1>Z-scan</h1><p class="intro-text">Refractive and multiphoton response</p></div><span class="format">SPATIAL RESPONSE <span>42 s / −10 ≤ z ≤ +10 mm</span></span></section>
+  <section class="parameters reduced-parameters" aria-label="Response controls">
+    <div class="parameter"><label for="detection-mode">Detection</label><select id="detection-mode"><option value="closed">Closed aperture</option><option value="open">Open aperture</option></select></div>
+    <div class="parameter"><label for="response-type">Nonlinear refraction · n₂</label><select id="response-type"><option value="positive">Positive · n₂ &gt; 0</option><option value="negative">Negative · n₂ &lt; 0</option><option value="none">None · n₂ = 0</option></select></div>
+    <div class="parameter"><label for="absorption-mode">Absorption</label><select id="absorption-mode"><option value="none">None</option><optgroup label="Linear"><option value="linear">Linear absorption</option></optgroup><optgroup label="Nonlinear"><option value="2">Two-photon · 2PA</option><option value="3">Three-photon · 3PA</option><option value="4">Four-photon · 4PA</option><option value="saturable">Saturable absorption · SA</option></optgroup></select></div>
+    <div class="parameter"><div class="loss-row"><label for="interaction-strength">Interaction strength</label><output id="strength-value">50%</output></div><input id="interaction-strength" type="range" min="0" max="1" step="0.01" value="0.5"><p id="strength-detail"></p></div>
+    <div class="parameter"><div class="loss-row"><label for="spatial-width">Rayleigh length · zᵣ</label><output id="width-value">1.50 mm</output></div><input id="spatial-width" type="range" min="0.5" max="3" step="0.05" value="1.5"><p>Scan interval −10 to +10 mm</p></div>
+  </section>
+  <section class="equations reduced-equations" aria-label="Response relationships">
+    <article><h2>Response law</h2>
+      <math id="kerr-equation" xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>T</mi><mo>≈</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mn>4</mn><msub><mi>ΔΦ</mi><mn>0</mn></msub><mi>x</mi></mrow><mrow><mo>(</mo><mn>1</mn><mo>+</mo><msup><mi>x</mi><mn>2</mn></msup><mo>)</mo><mo>(</mo><mn>9</mn><mo>+</mo><msup><mi>x</mi><mn>2</mn></msup><mo>)</mo></mrow></mfrac></math>
+      <math id="absorption-equation" hidden xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mfrac><mi>dI</mi><mi>dℓ</mi></mfrac><mo>=</mo><mo>−</mo><msub><mi>β</mi><mi>m</mi></msub><msup><mi>I</mi><mi>m</mi></msup></math>
+      <math id="saturable-equation" xmlns="http://www.w3.org/1998/Math/MathML" display="block" hidden><mi>α</mi><mo>(</mo><mi>I</mi><mo>)</mo><mo>=</mo><mfrac><msub><mi>α</mi><mn>0</mn></msub><mrow><mn>1</mn><mo>+</mo><mi>I</mi><mo>/</mo><msub><mi>I</mi><mi>sat</mi></msub></mrow></mfrac></math><math id="linear-equation" xmlns="http://www.w3.org/1998/Math/MathML" display="block" hidden><mfrac><mi>dI</mi><mi>dℓ</mi></mfrac><mo>=</mo><mo>−</mo><mi>αI</mi></math><math id="reference-equation" xmlns="http://www.w3.org/1998/Math/MathML" display="block" hidden><mi>T</mi><mo>/</mo><msub><mi>T</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></math><output id="response-detail"></output>
+    </article>
+    <article><h2>Effective interaction</h2><math id="phase-strength-equation" xmlns="http://www.w3.org/1998/Math/MathML" display="block"><msub><mi>ΔΦ</mi><mn>0</mn></msub><mo>=</mo><mfrac><mrow><mn>2</mn><mi>π</mi></mrow><mi>λ</mi></mfrac><msub><mi>n</mi><mn>2</mn></msub><msub><mi>I</mi><mn>0</mn></msub><msub><mi>L</mi><mi>eff</mi></msub></math><math id="loss-strength-equation" xmlns="http://www.w3.org/1998/Math/MathML" display="block" hidden><msub><mi>q</mi><mi>m</mi></msub><mo>=</mo><mo>(</mo><mi>m</mi><mo>−</mo><mn>1</mn><mo>)</mo><msub><mi>β</mi><mi>m</mi></msub><mi>L</mi><msubsup><mi>I</mi><mn>0</mn><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msubsup></math><math id="saturation-strength-equation" xmlns="http://www.w3.org/1998/Math/MathML" display="block" hidden><msub><mi>s</mi><mn>0</mn></msub><mo>=</mo><mfrac><msub><mi>I</mi><mn>0</mn></msub><msub><mi>I</mi><mi>sat</mi></msub></mfrac></math><output id="interaction-detail"></output></article>
+    <article><h2>Spatial scale</h2><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>x</mi><mo>=</mo><mfrac><mi>z</mi><msub><mi>z</mi><mi>R</mi></msub></mfrac><mo>,</mo><msub><mi>z</mi><mi>R</mi></msub><mo>=</mo><mfrac><mrow><mi>π</mi><msubsup><mi>w</mi><mn>0</mn><mn>2</mn></msubsup></mrow><mi>λ</mi></mfrac></math><output id="spatial-detail"></output></article>
+  </section>
+  <section class="player" aria-label="Z-scan animation">
+    <div class="stage-top"><span><i class="live-dot"></i> <span id="chapter-label">01 / REFERENCE</span></span><span class="illustrative">Small-phase approximation</span></div>
+    <p id="sample-intensity" class="intensity-readout"></p>
+    <div class="optics-wrap">
+      <svg id="optics" viewBox="0 0 960 300" role="img" aria-label="Laser, lens, translating sample, aperture and detector">
+        <defs>
+          <linearGradient id="beam-fill"><stop offset="0" stop-color="#69e6d2" stop-opacity=".07"/><stop offset=".6" stop-color="#69e6d2" stop-opacity=".23"/><stop offset="1" stop-color="#69e6d2" stop-opacity=".07"/></linearGradient>
+          <linearGradient id="glass" x1="0" x2="1"><stop stop-color="#8cb7e5" stop-opacity=".1"/><stop offset=".5" stop-color="#b4d7ff" stop-opacity=".5"/><stop offset="1" stop-color="#8cb7e5" stop-opacity=".1"/></linearGradient>
+          <radialGradient id="focus-glow"><stop stop-color="#c0fff1" stop-opacity=".6"/><stop offset="1" stop-color="#69e6d2" stop-opacity="0"/></radialGradient>
+          <clipPath id="diagram-clip"><rect x="44" y="36" width="714" height="216"/><rect id="post-aperture-clip" x="758" y="137" width="136" height="32"/></clipPath>
+        </defs>
+        <path class="axis" d="M40 153H898"/>
+        <g id="focus-zone"><ellipse cx="420" cy="153" rx="60" ry="70" fill="url(#focus-glow)"/><path class="focus-guide" d="M420 55V241"/><text x="420" y="44" text-anchor="middle" class="small-label">FOCUS · z = 0</text></g>
+        <g clip-path="url(#diagram-clip)"><path id="reference-beam"/><path id="beam-area" fill="url(#beam-fill)"/><path id="beam-output" fill="url(#beam-fill)"/><path id="beam-top" class="beam-edge"/><path id="beam-bottom" class="beam-edge"/><g id="photons"></g></g>
+        <g id="laser"><rect x="33" y="125" width="100" height="56" rx="8" class="instrument"/><rect x="126" y="140" width="14" height="26" rx="3" fill="#69e6d2"/><circle cx="52" cy="143" r="3" fill="#69e6d2"/><path d="M55 164h50" stroke="#526272" stroke-width="3"/><text x="83" y="211" text-anchor="middle" class="component-label">Laser</text></g>
+        <g id="lens"><ellipse cx="196" cy="153" rx="12" ry="73" fill="url(#glass)" stroke="#8aadc7" stroke-width="1.5"/><path d="M196 228v13m-20 0h40" class="stand"/><text x="196" y="272" text-anchor="middle" class="component-label">Lens</text></g>
+        <g id="sample"><rect x="-8" y="105" width="16" height="96" rx="2" fill="#b9a4f5" fill-opacity=".35" stroke="#c3acf7" stroke-width="1.5"/><path d="M0 204v28m-18 0h36" stroke="#b9a4f5" stroke-width="2"/><text x="0" y="91" text-anchor="middle" class="sample-label">Sample</text><text id="sample-position" x="0" y="259" text-anchor="middle" class="small-label"></text></g>
+        <g id="aperture"><path d="M758 72v65m0 32v65" stroke="#b7bfca" stroke-width="9"/><text x="758" y="272" text-anchor="middle" class="component-label">Aperture</text></g>
+        <g id="detector"><rect x="858" y="61" width="21" height="184" rx="4" class="instrument"/><rect x="854" y="66" width="5" height="174" rx="2" fill="#69e6d2"/><text x="868" y="272" text-anchor="middle" class="component-label">Detector</text></g>
+        <path d="M273 287h293m-9-5 9 5-9 5" class="travel-arrow"/><text x="419" y="284" text-anchor="middle" class="travel-label">z →</text>
+      </svg>
+    </div>
+    <div class="readouts">
+      <div class="curve-panel"><div class="panel-label"><span>NORMALIZED TRANSMITTANCE</span><span id="transmission-value">T = 1.000</span></div><svg id="chart" viewBox="0 0 600 180" role="img" aria-label="Normalized transmittance versus sample position"><defs><clipPath id="chart-clip"><rect x="59" y="19" width="522" height="119"/></clipPath></defs><g id="chart-grid"></g><path id="curve-ghost"/><path id="curve" clip-path="url(#chart-clip)"/><line id="chart-cursor" y1="19" y2="138"/><circle id="chart-point" r="5"/><text x="320" y="174" text-anchor="middle" class="chart-label">Sample position · z (mm)</text><text x="16" y="80" transform="rotate(-90 16 80)" text-anchor="middle" class="chart-label">T / T₀</text></svg></div>
+      <div class="spot-panel"><div class="panel-label">TRANSVERSE INTENSITY</div><canvas id="spot" width="320" height="160" aria-label="Transverse intensity profile and aperture boundary"></canvas><div class="spot-legend"><span class="ring-icon"></span> Aperture boundary</div><p id="aperture-throughput" class="throughput"></p></div>
+    </div>
+    <div class="narration" aria-live="polite" aria-atomic="true"><span id="scene-number">01</span><div><h2 id="scene-title">Gaussian reference</h2><p id="scene-copy">I(0,z) / I₀ = [1 + (z / zᵣ)²]⁻¹</p></div></div>
+    <div class="transport"><button id="play" class="play" type="button" aria-label="Play animation">▶ <span>Play</span></button><button id="restart" class="restart" type="button" aria-label="Restart animation">↺</button><span id="time" class="time">0:00 / 0:42</span><label class="speed">Speed <select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option><option value="4">4×</option></select></label><button id="fullscreen" class="fullscreen" type="button">Full screen ↗</button></div>
+    <label class="sr-only" for="timeline">Animation time in seconds</label><input id="timeline" class="timeline" type="range" min="0" max="42" step="0.01" value="0">
+    <nav class="chapters" aria-label="Chapters"><button data-time="0" class="active">01 <span>Reference</span></button><button data-time="7">02 <span>Sample</span></button><button data-time="13">03 <span>Translation</span></button><button data-time="35">04 <span>Response</span></button></nav>
+  </section>
+  <footer><details><summary>Model assumptions</summary><p>Detection, the sign of n₂ and absorption are independent selections. A common strength control scales the effective phase and selected absorptive response. Closed aperture uses fixed S = 0.25. Open aperture collects all transmitted power. Linear absorption is position independent. Saturable absorption uses α(I) = α₀/(1 + I/Isat), with fixed α₀L = 0.7 and focal I₀/Isat from 0 to 5. Transmittance is normalized to the low-intensity reference. Packets represent absolute transmitted power. The combined refractive/absorptive profile is a radial illustration without nonlinear diffraction propagation or temporal pulse integration.</p><p><a href="https://doi.org/10.1109/3.53394">Sheik-Bahae et al. (1990)</a> · <a href="https://doi.org/10.1103/PhysRevB.69.115421">Polyakov et al. (2004)</a></p></details><div class="credits"><span>Sergio C.</span><p>Created with AI assistance<br>OpenAI GPT-6.1 Sol · Physics review: GPT-6 Astra</p></div></footer>
+</main>
+<script>'use strict';
+((root) => {
+  const S = 0.25, apertureRadius = 16, contrast = 1;
+  const incident = x => 1 / (1 + x * x);
+  // Reference phase is 0.10 rad, reaching 0.50 rad at the maximum intensity.
+  function refraction(x, sign, visibility = 1) {
+    return 1 + 4 * 0.10 * visibility * sign * x / ((1 + x * x) * (9 + x * x));
+  }
+  const width = ratio => apertureRadius * Math.sqrt(-2 / Math.log1p(-S * ratio));
+
+  // u is the cumulative radial power coordinate of the incident Gaussian.
+  function survival(u, x, order, loss, visibility = 1) {
+    if (!order || !loss || !visibility) return 1;
+    const p = order - 1;
+    const q = (Math.pow(1 - loss, -p) - 1) * visibility;
+    return Math.pow(1 + q * Math.pow(incident(x) * (1 - u), p), -1 / p);
+  }
+
+  function integrate(fn, upper = 1, steps = 96) {
+    const h = upper / steps;
+    let sum = fn(0) + fn(upper);
+    for (let i = 1; i < steps; i++) sum += (i % 2 ? 4 : 2) * fn(i * h);
+    return sum * h / 3;
+  }
+
+  function adaptiveIntegral(fn, upper) {
+    const simpson = (a, b, fa, fm, fb) => (b - a) * (fa + 4 * fm + fb) / 6;
+    function refine(a, b, fa, fm, fb, whole, tolerance, depth) {
+      const mid = (a + b) / 2;
+      const fl = fn((a + mid) / 2), fr = fn((mid + b) / 2);
+      const left = simpson(a, mid, fa, fl, fm);
+      const right = simpson(mid, b, fm, fr, fb);
+      const error = left + right - whole;
+      if (!depth || Math.abs(error) <= 15 * tolerance) return left + right + error / 15;
+      return refine(a, mid, fa, fl, fm, left, tolerance / 2, depth - 1)
+        + refine(mid, b, fm, fr, fb, right, tolerance / 2, depth - 1);
+    }
+    const fa = fn(0), fm = fn(upper / 2), fb = fn(upper);
+    return refine(0, upper, fa, fm, fb, simpson(0, upper, fa, fm, fb), 1e-8, 24);
+  }
+
+  // Exact local propagation through a homogeneous saturable absorber:
+  // log(t) + s(t - 1) = -alpha0 L, where s = Iin / Isat.
+  function saturableTransmission(s, opticalDepth) {
+    const baseline = Math.exp(-opticalDepth);
+    if (s === 0 || opticalDepth === 0) return baseline;
+    let transmission = Math.exp(-opticalDepth / (1 + s));
+    for (let i = 0; i < 10; i++) {
+      const residual = Math.log(transmission) + s * (transmission - 1) + opticalDepth;
+      transmission -= residual / (1 / transmission + s);
+      transmission = Math.max(baseline, Math.min(1, transmission));
+    }
+    return transmission;
+  }
+
+  function radialTransmission(u, x, options) {
+    const {order = 0, loss = 0.55, visibility = 1, intensity = 1,
+      opticalDepth = 0, saturation = false, saturationRatio = 0} = options;
+    if (saturation) {
+      const localIntensity = saturationRatio * visibility * intensity * incident(x) * (1 - u);
+      return saturableTransmission(localIntensity, opticalDepth);
+    }
+    const scale = visibility * intensity ** Math.max(0, order - 1);
+    return Math.exp(-opticalDepth) * survival(u, x, order, loss, scale);
+  }
+
+  function response(x, options) {
+    const {sign = 1, order = 0, loss = 0.55, visibility = 1, aperture = 'closed', intensity = 1, radius = apertureRadius, phase = 0.10} = options;
+    const ratio = refraction(x, sign, visibility * intensity * phase / 0.10);
+    const baseline = -Math.expm1(-2 * (radius / width(1)) ** 2);
+    const acceptance = -Math.expm1(-2 * (radius / width(ratio)) ** 2);
+    const absorptionScale = visibility * intensity ** Math.max(0, order - 1);
+    const local = u => radialTransmission(u, x, options);
+    const referenceTransmission = Math.exp(-(options.opticalDepth || 0));
+    const attenuated = (order && loss) || options.opticalDepth > 0;
+    const openFlux = attenuated ? adaptiveIntegral(local, 1) : 1;
+    const closedFlux = attenuated ? adaptiveIntegral(local, acceptance) : acceptance;
+    const flux = aperture === 'open' ? openFlux : closedFlux;
+    return {referenceTransmission, baseline, absorptionScale, ratio, acceptance, openFlux, closedFlux, flux,
+      transmission: flux / ((aperture === 'open' ? 1 : baseline) * referenceTransmission)};
+  }
+
+  // Independent irrational sequences avoid radial/angular/absorption correlation.
+  function packet(id) {
+    const u = (0.5 + id * 0.618033988749895) % 1;
+    return {u, radial: Math.sqrt(-Math.log(1 - u) / 2),
+      angle: 2 * Math.PI * ((id * 0.414213562373095) % 1),
+      absorptionDraw: (0.37 + id * 0.732050807568877) % 1};
+  }
+
+  function derive(parameters, order, sign, multiplier = 1) {
+    const wavelength = parameters.wavelength * 1e-9;
+    const waist = parameters.waist * 1e-6;
+    const length = parameters.length * 1e-3;
+    const alpha = parameters.alpha * 100;
+    const intensity = 2 * parameters.power * 1000 * multiplier / (Math.PI * waist ** 2);
+    const rayleigh = Math.PI * waist ** 2 / wavelength;
+    const effective = rate => rate === 0 ? length : -Math.expm1(-rate * length) / rate;
+    const effectiveLength = effective(alpha);
+    const phase = 2 * Math.PI / wavelength * parameters.n2 * 1e-18 * intensity * effectiveLength;
+    const exponent = Math.max(1, order - 1);
+    const coefficient = parameters.beta * Math.pow(0.01, 2 * order - 3) / Math.pow(1e9, order - 1);
+    const q = order ? exponent * coefficient * effective(exponent * alpha) * intensity ** exponent : 0;
+    const loss = order ? -Math.expm1(-Math.log1p(q) / exponent) : 0;
+    const apertureWidth = waist * Math.sqrt(1 + (parameters.distance * 1e-3 / rayleigh) ** 2);
+    const radius = width(1) * parameters.aperture / (apertureWidth * 1000);
+    return {intensity, rayleigh, effectiveLength, phase: phase * sign, loss, radius,
+      linearTransmission: Math.exp(-alpha * length), thinRatio: length / rayleigh};
+  }
+
+  const model = {S, apertureRadius, contrast, radialTransmission, saturableTransmission, derive, incident, refraction, width, survival, integrate, response, packet};
+  if (typeof module !== 'undefined' && module.exports) module.exports = model;
+  else root.ZScanModel = model;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+</script>
+<script>'use strict';
+(() => {
+  const M = window.ZScanModel;
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const duration = 42, particleCount = 180, flightLength = 718, particleSpeed = 240;
+  const state = {time: 0, playing: false, speed: 1, material: 1, order: 0, absorption: 'none', aperture: 'closed', radius: 16};
+  state.strength = 0.5;
+  state.rayleighMM = 1.5;
+  let derived;
+  function updateInteraction() {
+    derived = {
+      phase: state.material * 0.5 * state.strength,
+      loss: state.order ? 0.8 * state.strength : 0,
+      rayleigh: state.rayleighMM / 1000,
+      radius: 16,
+      linearTransmission: 1
+    };
+  }
+  updateInteraction();
+  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+  const ease = v => v*v*(3-2*v);
+  const scanCoordinate = () => -4 + 8*clamp((state.time-13)/22,0,1);
+  const position = () => 2.5 * scanCoordinate() / state.rayleighMM;
+  const visibility = () => ease(clamp((state.time-7)/3,0,1));
+  const options = () => ({opticalDepth: state.absorption==='saturable'?0.7:state.absorption==='linear'?0.7*state.strength:0, saturation: state.absorption==='saturable', saturationRatio:5*state.strength, radius: derived.radius, phase: Math.abs(derived.phase), intensity: 1, sign: state.material, order: state.order, loss: derived.loss, aperture: state.aperture, visibility: visibility()});
+  let chartWidth = 600, chartMinimum = 0.9, chartMaximum = 1.1;
+  const chartX = x => 59+(x+4)/8*(chartWidth-78);
+  const chartY = y => 138-(y-chartMinimum)/(chartMaximum-chartMinimum)*119;
+  function svgNode(tag, attrs, parent) {
+    const node = document.createElementNS(NS,tag);
+    Object.entries(attrs).forEach(([k,v]) => node.setAttribute(k,v));
+    parent.appendChild(node); return node;
+  }
+  function drawGrid() {
+    const grid = $('chart-grid'); grid.replaceChildren();
+    Array.from({length:7},(_,i)=>chartMinimum+i*(chartMaximum-chartMinimum)/6).forEach(t => {
+      svgNode('line',{x1:59,x2:chartWidth-19,y1:chartY(t),y2:chartY(t),stroke:'#384758','stroke-width':1,'stroke-dasharray':t===1?'4 4':'0'},grid);
+      const label=svgNode('text',{x:49,y:chartY(t)+4,'text-anchor':'end',class:'chart-label'},grid); label.textContent=t.toFixed(2);
+    });
+    (chartWidth<400?[-4,0,4]:[-4,-2,0,2,4]).forEach(x => {
+      if(x===0) svgNode('line',{x1:chartX(x),x2:chartX(x),y1:19,y2:138,stroke:'#384758','stroke-width':1},grid);
+      svgNode('text',{x:chartX(x),y:155,'text-anchor':'middle',class:'chart-label'},grid).textContent=(2.5*x).toFixed(0);
+    });
+    svgNode('rect',{x:59,y:19,width:chartWidth-78,height:119,fill:'none',stroke:'#384758','stroke-width':1},grid);
+  }
+  const particles = Array.from({length:particleCount},() => svgNode('circle',{r:1.45,fill:'#b0ffe9',opacity:0.8},$('photons')));
+  const chapters = ['REFERENCE','SAMPLE','TRANSLATION','RESPONSE'];
+  function story() {
+    const chapter = state.time<7?0:state.time<13?1:state.time<35?2:3;
+    let title='Gaussian reference', copy='I(0,z) / I₀ = [1 + (z / zᵣ)²]⁻¹';
+    if(chapter>0) {
+      if(state.absorption==='saturable') {
+        title='Saturable absorption';
+        copy=state.aperture==='open'
+          ? 'The central peak represents reduced absorption at high intensity. T / T₀ is normalized to the low-intensity transmission.'
+          : 'Saturable transmission and refractive redistribution contribute to the finite-aperture signal.';
+      } else if(state.absorption==='linear') {
+        title='Linear absorption';
+        copy='Packets are absorbed at the sample. The normalized open-aperture trace remains unity because the loss is independent of intensity.';
+      } else if(state.order) {
+        title=state.aperture==='open'?'Multiphoton absorption':'Combined closed-aperture response';
+        copy=state.aperture==='open'
+          ? state.order+'PA depletes the beam core near focus. With complete collection, changing the sign of n₂ leaves this absorption trace unchanged in the thin-sample model.'
+          : 'The valley from multiphoton loss is combined with the refractive peak–valley contribution.';
+      } else {
+        title=state.aperture==='open'?'Open-aperture reference':'Refractive response';
+        copy=state.aperture==='open'?'Pure refraction conserves integrated transmitted power.'
+          : state.material===0?'T / T₀ = 1':state.material>0?'Positive n₂ produces a valley–peak sequence.':'Negative n₂ produces a peak–valley sequence.';
+      }
+    }
+    document.querySelector('.illustrative').textContent=state.aperture==='open'?'Open aperture':'Closed aperture · S = 0.25';
+    $('chapter-label').textContent='0'+(chapter+1)+' / '+chapters[chapter];
+    $('scene-number').textContent='0'+(chapter+1);
+    if($('scene-title').textContent!==title)$('scene-title').textContent=title;
+    if($('scene-copy').textContent!==copy)$('scene-copy').textContent=copy;
+    document.querySelectorAll('.chapters button').forEach((b,i) => {
+      b.classList.toggle('active',i===chapter);
+      if(i===chapter)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');
+    });
+  }
+  function beam(response) {
+    const x=position(), sx=420+scanCoordinate()*35;
+    const drawnRayleigh=state.rayleighMM*14;
+    const waist=M.width(1)/Math.sqrt(1+((758-420)/drawnRayleigh)**2);
+    const drawnRadius = Math.min(75, state.radius);
+    const base = p => {
+      const axialPosition = state.aperture === 'open' ? p : Math.min(p, 758);
+      return waist * Math.sqrt(1 + ((Math.max(196, axialPosition) - 420) / drawnRayleigh) ** 2);
+    };
+    const change=M.width(response.ratio)/M.width(1);
+    const width=p => base(p)*(1+(change-1)*ease(clamp((p-sx)/(758-sx),0,1)));
+    const silhouette=(start,end) => {
+      const top=[],bottom=[];
+      for(let p=start;p<end;p+=2){top.push(`${p},${(153-width(p)).toFixed(2)}`);bottom.push(`${p},${(153+width(p)).toFixed(2)}`);}
+      top.push(`${end},${153-width(end)}`);bottom.push(`${end},${153+width(end)}`);
+      return 'M'+top.join('L')+'L'+bottom.reverse().join('L')+'Z';
+    };
+    $('beam-area').setAttribute('d',silhouette(140,sx));
+    $('beam-output').setAttribute('d',silhouette(sx,858));
+    $('beam-output').setAttribute('opacity',response.openFlux);
+    const top=[],bottom=[],ref=[];
+    for(let p=140;p<=858;p+=2){top.push(`${p},${153-width(p)}`);bottom.push(`${p},${153+width(p)}`);ref.push(`${p},${153-base(p)}`);}
+    $('beam-top').setAttribute('d','M'+top.join('L'));
+    $('beam-bottom').setAttribute('d','M'+bottom.join('L'));
+    $('reference-beam').setAttribute('d','M'+ref.join('L'));
+    $('sample').setAttribute('transform',`translate(${sx},0)`);
+    $('sample').style.opacity=visibility();
+    $('sample-position').textContent=`z = ${(x*derived.rayleigh*1000).toFixed(2)} mm`;
+    $('sample-intensity').textContent=`I(0,z) / I₀ = ${M.incident(x).toFixed(3)} · Transmitted = ${(100*response.openFlux).toFixed(1)}% · Absorbed = ${(100*(1-response.openFlux)).toFixed(1)}%`;
+    $('aperture-throughput').textContent=`Detected power / Pin = ${(response.flux*derived.linearTransmission*100).toFixed(1)}%`;
+    $('focus-zone').style.opacity=state.time<7?'1':'.3';
+    $('aperture').querySelector('path').setAttribute('d',`M758 72V${153-drawnRadius}M758 ${153+drawnRadius}V234`);
+    $('aperture').style.opacity=state.aperture==='open'?'0':'1';
+    $('post-aperture-clip').setAttribute('y',state.aperture==='open'?36:153-drawnRadius);
+    $('post-aperture-clip').setAttribute('height',state.aperture==='open'?216:2*drawnRadius);
+    particles.forEach((node,i) => {
+      const travel=state.time*particleSpeed+i*flightLength/particleCount;
+      const px=140+travel%flightLength;
+      const id=i+particleCount*Math.floor(travel/flightLength);
+      const p=M.packet(id);
+      const survived=p.absorptionDraw<M.radialTransmission(p.u,x,options());
+      const accepted=state.aperture==='open'||p.u<response.acceptance;
+      const hidden=(px>=sx&&!survived)||(px>758&&!accepted);
+      node.setAttribute('cx',px);node.setAttribute('cy',153+p.radial*Math.cos(p.angle)*width(px));
+      node.setAttribute('opacity',hidden?0:.8);
+    });
+    return change;
+  }
+  const ctx=$('spot').getContext('2d');
+  function spot(change, absorptionScale) {
+    ctx.clearRect(0,0,320,160);
+    const spotScale=75/Math.max(2*M.width(1),state.radius);
+    const w=spotScale*M.width(1)*change, radius=2*w, x=position();
+    const glow=ctx.createRadialGradient(160,80,0,160,80,radius);
+    for(let i=0;i<=64;i++) {
+      const r=i/64, gaussian=Math.exp(-8*r*r);
+      const remaining=M.radialTransmission(1-gaussian,x,options());
+      const alpha=Math.min(.98,.6/(change*change))*gaussian*remaining*derived.linearTransmission;
+      glow.addColorStop(r,`rgba(138,241,214,${alpha})`);
+    }
+    ctx.fillStyle=glow;ctx.fillRect(160-radius,80-radius,2*radius,2*radius);
+    if(state.aperture==='closed') {
+      ctx.setLineDash([3,4]);ctx.strokeStyle='#c0cbd6';ctx.lineWidth=1.3;
+      ctx.beginPath();ctx.arc(160,80,spotScale*state.radius,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    }
+    document.querySelector('.spot-legend').style.visibility=state.aperture==='closed'?'visible':'hidden';
+  }
+  let curveCache={key:'',points:[]};
+  function plot(response) {
+    const opts=options(), key=JSON.stringify([opts,state.rayleighMM]);
+    if(curveCache.key!==key) {
+      curveCache={key,points:Array.from({length:801},(_,i) => {
+        const x=-4+i/100;return {x,y:M.response(2.5*x/state.rayleighMM,opts).transmission};
+      })};
+    }
+    const values = curveCache.points.map(p => p.y);
+    values.push(1, response.transmission);
+    const low = Math.min(...values), high = Math.max(...values);
+    const padding = Math.max(0.05, (high - low) * 0.08);
+    const maximum = Math.ceil((Math.max(Math.abs(low), Math.abs(high)) + padding) * 20) / 20;
+    const minimum = Math.max(0, Math.floor((low - padding) * 20) / 20);
+    if (minimum !== chartMinimum || maximum !== chartMaximum) {
+      chartMinimum = minimum; chartMaximum = maximum; drawGrid();
+    }
+    const end=scanCoordinate();let all='',part='';
+    curveCache.points.forEach(({x,y},i) => {
+      const p=`${chartX(x).toFixed(2)},${chartY(y).toFixed(2)}`;
+      all+=(i?'L':'M')+p;if(x<=end)part+=(i?'L':'M')+p;
+    });
+    part+='L'+chartX(end).toFixed(2)+','+chartY(response.transmission).toFixed(2);
+    $('curve-ghost').setAttribute('d',state.time>=35?all:'');$('curve').setAttribute('d',part);
+    $('chart-cursor').setAttribute('x1',chartX(end));$('chart-cursor').setAttribute('x2',chartX(end));
+    $('chart-point').setAttribute('cx',chartX(end));$('chart-point').setAttribute('cy',chartY(response.transmission));
+    $('transmission-value').textContent='T / T₀ = '+response.transmission.toFixed(3);
+  }
+  function render() {
+    updateInteraction();
+    updateEquations();
+    const response=M.response(position(),options());
+    story();spot(beam(response), response.absorptionScale);plot(response);
+    $('timeline').value=state.time;
+    $('time').textContent=`0:${String(Math.floor(state.time)).padStart(2,'0')} / 0:42`;
+  }
+  function setPlaying(playing) {
+    state.playing=playing;
+    $('play').innerHTML=playing?'Ⅱ <span>Pause</span>':'▶ <span>Play</span>';
+    $('play').setAttribute('aria-label',playing?'Pause animation':'Play animation');
+  }
+  $('play').addEventListener('click',() => {if(state.time>=35)state.time=0;setPlaying(!state.playing);render();});
+  $('restart').addEventListener('click',() => {state.time=0;setPlaying(false);render();});
+  $('timeline').addEventListener('input',e => {state.time=Number(e.target.value);render();});
+  $('speed').addEventListener('change',e => state.speed=Number(e.target.value));
+  document.querySelectorAll('.chapters button').forEach(b => b.addEventListener('click',() => {state.time=Number(b.dataset.time);render();}));
+  function refreshControls() {
+    if (!state.playing && state.time < 13) state.time = 35;
+    render();
+  }
+  $('response-type').addEventListener('change', e => {
+    state.material=e.target.value==='none'?0:e.target.value==='negative'?-1:1;
+    refreshControls();
+  });
+  $('absorption-mode').addEventListener('change', e => {
+    state.absorption=e.target.value;
+    state.order=/^[234]$/.test(state.absorption)?Number(state.absorption):0;
+    refreshControls();
+  });
+  $('detection-mode').addEventListener('change', e => {
+    state.aperture=e.target.value;refreshControls();
+  });
+  $('interaction-strength').addEventListener('input', e => {
+    state.strength=Number(e.target.value);refreshControls();
+  });
+  $('spatial-width').addEventListener('input', e => {
+    state.rayleighMM=Number(e.target.value);drawGrid();refreshControls();
+  });
+  function updateEquations(){
+    const saturable=state.absorption==='saturable';
+    const linear=state.absorption==='linear';
+    const absorbing=state.absorption!=='none';
+    const refractive=state.material!==0;
+    $('strength-value').textContent=Math.round(state.strength*100)+'%';
+    $('width-value').textContent=state.rayleighMM.toFixed(2)+' mm';
+    const phaseText='ΔΦ₀ = '+derived.phase.toFixed(3)+' rad';
+    const absorptionText=saturable?'I₀ / Isat = '+(5*state.strength).toFixed(2)
+      : linear?'αL = '+(0.7*state.strength).toFixed(3)
+      : state.order?'Focal on-axis loss = '+(100*derived.loss).toFixed(1)+'%':'';
+    $('strength-detail').textContent=[refractive?phaseText:'',absorptionText].filter(Boolean).join(' · ')||'No active interaction';
+    $('kerr-equation').toggleAttribute('hidden',!refractive);
+    $('absorption-equation').toggleAttribute('hidden',!state.order);
+    $('saturable-equation').toggleAttribute('hidden',!saturable);
+    $('linear-equation').toggleAttribute('hidden',!linear);
+    $('reference-equation').toggleAttribute('hidden',refractive||absorbing);
+    $('response-detail').textContent=(state.aperture==='open'?'Open aperture':'Closed aperture · S = 0.25')
+      +' · n₂ '+(state.material===0?'= 0':state.material>0?'> 0':'< 0');
+    $('phase-strength-equation').toggleAttribute('hidden',!refractive);
+    $('loss-strength-equation').toggleAttribute('hidden',!state.order);
+    $('saturation-strength-equation').toggleAttribute('hidden',!saturable);
+    $('interaction-detail').textContent=saturable
+      ? 'SA uses fixed α₀L = 0.7. Absolute transmission stays below 100%; the low-intensity-normalized curve can exceed 1.'
+      : linear?'Uniform linear loss changes the packet flux; normalization removes its constant attenuation.'
+      : state.order&&refractive?'The common strength scales phase and focal absorption together; the selected n₂ sign and absorption mechanism are independent.'
+      : state.order?'Strength sets the focal on-axis loss. The packet flux follows the integrated Gaussian attenuation.'
+      : 'Strength sets the effective phase. The open trace is unity for pure refraction.';
+    $('spatial-detail').textContent='zᵣ = '+state.rayleighMM.toFixed(2)+' mm · Fixed scan interval';
+  }
+  $('fullscreen').addEventListener('click',async() => {
+    try {if(document.fullscreenElement)await document.exitFullscreen();else await document.querySelector('.player').requestFullscreen();}
+    catch {$('fullscreen').textContent='Use F11 to expand';}
+  });
+  document.addEventListener('fullscreenchange',() => {$('fullscreen').textContent=document.fullscreenElement?'Exit full screen ↙':'Full screen ↗';});
+  document.addEventListener('keydown',e => {
+    if(e.code==='Space'&&!/INPUT|SELECT|BUTTON|TEXTAREA|SUMMARY/.test(e.target.tagName)){e.preventDefault();$('play').click();}
+  });
+  let previous=performance.now();
+  function tick(now) {
+    const dt=Math.min((now-previous)/1000,.1);previous=now;
+    if(state.playing&&!document.hidden){state.time=Math.min(duration,state.time+dt*state.speed);if(state.time>=duration)setPlaying(false);render();}
+    requestAnimationFrame(tick);
+  }
+  const resizeChart=new ResizeObserver(() => {
+    chartWidth=Math.max(230,$('chart').clientWidth);$('chart').setAttribute('viewBox',`0 0 ${chartWidth} 180`);
+    $('chart').querySelector('clipPath rect').setAttribute('width',chartWidth-78);
+    $('chart').querySelector('text[text-anchor="middle"]').setAttribute('x',chartWidth/2+20);
+    drawGrid();render();
+  });
+  resizeChart.observe($('chart'));drawGrid();render();requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
+
